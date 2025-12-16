@@ -41,8 +41,8 @@ Predicting building energy consumption is crucial for:
 
 ```bash
 # Clone the repository
-git clone https://github.com/sudhirshivaram/energy-consumption-prod.git
-cd energy-consumption-prod
+git clone https://github.com/sudhirshivaram/energy-consumption-forecasting.git
+cd energy-consumption-forecasting
 
 # Create virtual environment
 python -m venv .venv
