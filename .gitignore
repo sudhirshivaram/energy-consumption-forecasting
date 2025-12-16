@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+models/dev/
+*.log
+.env
+
+# Outputs (generated files)
+outputs/
+shap_outputs/
+catboost_info/
+
+# HuggingFace (separate repo)
+hf-spaces/
+
+# Notes and temp files
+notes/
+app-ui/
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/

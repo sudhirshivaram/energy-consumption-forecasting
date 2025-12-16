@@ -1,0 +1,82 @@
+# Energy Consumption ML Project: Implementation Plan
+
+This document outlines a step-by-step implementation plan for advancing the Energy Consumption ML project beyond the LinearRegression baseline. It is designed for practical, interview-ready reference.
+
+---
+
+## 1. Objective
+- Predict building heating load using the UCI Energy Efficiency dataset.
+- Build on a strong LinearRegression baseline to explore advanced models, feature engineering, and robust evaluation.
+
+---
+
+## 2. Implementation Steps
+
+### Step 1: Baseline Review
+- Confirm LinearRegression baseline metrics and feature importances.
+- Ensure code, config, and artifacts are reproducible.
+
+### Step 2: Regularized Linear Models
+- Update `config/config.yaml` to use `Ridge` and `Lasso` (one at a time).
+- Tune `alpha` parameter (try 0.01, 0.1, 1, 10, 100).
+- Retrain and compare metrics and feature importances to baseline.
+- Document any changes in coefficient stability or feature selection.
+
+### Step 3: Multicollinearity & Feature Importance Analysis
+- Visualize feature correlation matrix (heatmap).
+- Retrain models without `cooling_load` to assess its impact.
+- Analyze how feature importances shift.
+
+### Step 4: Tree-Based Models
+- Update config to use RandomForest, XGBoost, LightGBM, CatBoost (one at a time).
+- Use default hyperparameters, then basic tuning (`n_estimators`, `max_depth`).
+- Compare train/test metrics and check for overfitting.
+- Check for negative predictions and document handling.
+
+### Step 5: Feature Engineering
+- Add interaction terms (e.g., `glazing_area * orientation`).
+- Try polynomial features (e.g., `surface_area^2`).
+- Create ratios (e.g., `glazing_area / surface_area`).
+- Remove or add features to test their impact.
+- Retrain and evaluate after each change.
+
+### Step 6: Model Interpretability & Error Analysis
+- For linear models: Examine coefficients and their physical meaning.
+- For tree models: Use feature importances and SHAP values.
+- Plot residuals vs predicted values, analyze outliers.
+- Visualize predictions vs actuals.
+
+### Step 7: Robustness & Productionization
+- After each model, check for negative predictions and apply post-processing if needed.
+- Ensure all steps are reproducible and config-driven.
+- Save model, scaler, and config with each artifact.
+- Plan for input validation and monitoring (future work).
+
+---
+
+## 3. Best Practices
+- Use a single, updatable config file for all experiments.
+- Save a copy of the config with model outputs for traceability.
+- Document all findings and changes after each experiment.
+- Avoid over-engineering; focus on clear, incremental improvements.
+
+---
+
+## 4. Success Criteria
+- Improved or comparable R², RMSE, MAE, and MAPE on test set.
+- Stable and interpretable feature importances.
+- No overfitting (minimal train/test gap).
+- No negative predictions (or handled appropriately).
+- All code and results are reproducible.
+
+---
+
+## 5. References
+- See `docs/FAQs.doc` for detailed FAQs and interview prep.
+- Project files: `app-ml/src/pipelines/training.py`, `app-ml/src/pipelines/model_factory.py`, `config/config.yaml`, `app-ml/entrypoint/train.py`
+
+---
+
+**Document Version:** 1.0  
+**Last Updated:** 2025-12-14  
+**Author:** Energy Consumption ML Pipeline

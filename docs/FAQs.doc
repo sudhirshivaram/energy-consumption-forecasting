@@ -1,0 +1,135 @@
+# Energy Consumption ML Project: Advanced Techniques FAQ
+
+This FAQ is designed as a reference for interview preparation, focusing on the next steps after establishing a strong LinearRegression baseline for the UCI Energy Efficiency dataset. It covers advanced modeling, feature engineering, interpretability, and practical considerations.
+
+---
+
+## 1. What should I do after establishing a strong LinearRegression baseline?
+
+**Recommended next steps:**
+- Try regularized linear models (Ridge, Lasso) to address multicollinearity and feature selection.
+- Analyze feature importance and multicollinearity, especially the dominance of `cooling_load`.
+- Experiment with tree-based models (RandomForest, XGBoost, LightGBM, CatBoost) to capture nonlinearities.
+- Perform feature engineering (interactions, polynomials, ratios, feature removal).
+- Deepen model interpretability and conduct error analysis.
+- Check for negative predictions and apply post-processing if needed.
+- Plan for productionization (reproducibility, config-driven pipelines, artifact saving).
+
+---
+
+## 2. Why use Ridge and Lasso after LinearRegression?
+
+- **Ridge (L2 regularization):** Shrinks coefficients, handles multicollinearity, improves generalization.
+- **Lasso (L1 regularization):** Can zero out less important features, performing feature selection.
+- **Expected outcome:** Similar or slightly improved performance, more robust and interpretable coefficients.
+
+---
+
+## 3. How do I implement Ridge or Lasso in this project?
+
+- Edit `config/config.yaml`:
+  ```yaml
+  model:
+    type: Ridge  # or Lasso
+    params:
+      alpha: 1.0
+  ```
+- Retrain with `python app-ml/entrypoint/train.py`.
+- Compare metrics and feature importances to the baseline.
+
+---
+
+## 4. Why is `cooling_load` so dominant, and what should I do about it?
+
+- `cooling_load` is highly correlated with `heating_load` and other features, acting as a summary of building thermal efficiency.
+- To assess the value of other features, retrain models without `cooling_load` and observe the performance drop.
+- Analyze the feature correlation matrix to understand multicollinearity.
+
+---
+
+## 5. What are the benefits and risks of tree-based models?
+
+- **Benefits:** Capture nonlinearities and feature interactions, often improve accuracy.
+- **Risks:** Can overfit if not tuned, may produce negative predictions, require more hyperparameter tuning.
+- **How to proceed:** Switch model type in config, use default parameters, then tune as needed. Monitor train vs test metrics.
+
+---
+
+## 6. How should I approach feature engineering?
+
+- Add interaction terms (e.g., `glazing_area * orientation`).
+- Try polynomial features (e.g., `surface_area^2`).
+- Create ratios (e.g., `glazing_area / surface_area`).
+- Remove or add features to test their impact.
+- Use scikit-learn’s `PolynomialFeatures` or manual feature creation.
+
+---
+
+## 7. How do I interpret model results and perform error analysis?
+
+- For linear models: Examine coefficients and their physical meaning.
+- For tree models: Use feature importances and SHAP values.
+- Plot residuals vs predicted values, analyze outliers, and visualize predictions vs actuals.
+- Don’t focus only on global metrics; local errors can reveal data/model issues.
+
+---
+
+## 8. What if my model predicts negative heating loads?
+
+- LinearRegression in this project produces no negative predictions, but tree models might.
+- Solutions:
+  - Post-process with `np.maximum(predictions, 0)`.
+  - Model `log(heating_load)` instead.
+  - Use constrained optimization (advanced).
+
+---
+
+## 9. How do I ensure my POC is production-ready?
+
+- Keep pipelines reproducible and config-driven.
+- Save models and scalers with metadata.
+- Plan for input validation and monitoring.
+- Don’t over-engineer at POC stage, but keep future needs in mind.
+
+---
+
+## 10. What are common pitfalls to avoid?
+
+- Using raw coefficients for feature importance (ignores scale).
+- Not scaling features before LinearRegression.
+- Fitting scaler on test data (data leakage).
+- Dropping the wrong columns (e.g., dropping `cooling_load` as a feature).
+- Confusing train/test metrics (overfitting detection).
+
+---
+
+## 11. What are the key takeaways from the baseline?
+
+- LinearRegression is a strong baseline (R² ≈ 0.96).
+- Feature scaling is mandatory for meaningful importances.
+- `cooling_load` is the most important predictor.
+- No overfitting or negative predictions in baseline.
+- Model-agnostic codebase enables easy experimentation.
+
+---
+
+## 12. What are the next steps for interview preparation?
+
+- Be able to explain why each modeling step is taken.
+- Understand the trade-offs between model complexity, interpretability, and generalization.
+- Practice explaining feature importance, multicollinearity, and error analysis.
+- Prepare to discuss how you would extend the POC to production.
+
+---
+
+## References
+- Project files: `app-ml/src/pipelines/training.py`, `app-ml/src/pipelines/model_factory.py`, `config/config.yaml`, `app-ml/entrypoint/train.py`
+- [Scikit-learn LinearRegression docs](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html)
+- [StandardScaler docs](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html)
+- [UCI Energy Efficiency Dataset](https://archive.ics.uci.edu/ml/datasets/energy+efficiency)
+
+---
+
+**Document Version:** 1.0  
+**Last Updated:** 2025-12-14  
+**Author:** Energy Consumption ML Pipeline FAQ

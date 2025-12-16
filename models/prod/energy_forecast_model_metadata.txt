@@ -1,0 +1,34 @@
+============================================================
+MODEL TRAINING METADATA
+============================================================
+
+Training Date: 2025-12-15 22:46:47
+Model Path: models/prod/energy_forecast_model.pkl
+
+TRAINING METRICS:
+----------------------------------------
+MSE: 2.9893
+RMSE: 1.7290
+MAE: 1.1873
+R2: 0.970380
+MAPE: 5.5004%
+
+TEST METRICS:
+----------------------------------------
+MSE: 3.7819
+RMSE: 1.9447
+MAE: 1.3796
+R2: 0.963716
+MAPE: 6.2547%
+
+FEATURES (9):
+----------------------------------------
+1. relative_compactness
+2. surface_area
+3. wall_area
+4. roof_area
+5. overall_height
+6. orientation
+7. glazing_area
+8. glazing_area_distribution
+9. cooling_load
