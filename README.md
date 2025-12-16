@@ -9,6 +9,8 @@ A production-ready machine learning pipeline for predicting building heating loa
 
 **🔗 [Try Live Demo on Hugging Face Spaces](https://huggingface.co/spaces/sudhirshivaram/energy-consumption-forecasting)**
 
+[![Live Demo](energy-consumption-forecast.png)](https://huggingface.co/spaces/sudhirshivaram/energy-consumption-forecasting)
+
 ## 📊 Project Overview
 
 This project builds an interpretable machine learning system to forecast energy consumption in buildings based on architectural and thermal properties. The pipeline achieves **96% accuracy (R²=0.96)** using a simple LinearRegression baseline, validated through extensive experimentation with regularization techniques.
